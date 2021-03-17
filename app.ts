@@ -25,19 +25,19 @@ app.use(cors());
 // here we are configuring the expressWinston logging middleware,
 // which will automatically log all HTTP requests handled by Express.js
 app.use(
-  expressWinston.logger({
-    transports: [new winston.transports.Console()],
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.json()
-    )
-  })
+    expressWinston.logger({
+        transports: [new winston.transports.Console()],
+        format: winston.format.combine(
+            winston.format.colorize(),
+            winston.format.json()
+        )
+    })
 );
 
 app.get('/', (req, res) => {
-  res.send('hello world');
+    res.send('hello world');
 });
 
 server.listen(config.PORT, () => {
-  debugLog(`Server running at http://localhost:${config.PORT}`);
+    debugLog(`Server running at http://localhost:${config.PORT}`);
 });
