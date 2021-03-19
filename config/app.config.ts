@@ -20,9 +20,9 @@ export default {
      * Specify here the CORS configuration. refer to the following
      * documentation to learn more about the options:
      * https://www.npmjs.com/package/cors#configuring-cors
-    */
+     */
     corsOptions: {
-        origin: "*",
+        origin: '*',
         methods: ['GET', 'HEAD', 'PUT', 'PATH', 'POST', 'DELETE'],
         preflightContinue: false,
         optionsSuccessStatus: 204
