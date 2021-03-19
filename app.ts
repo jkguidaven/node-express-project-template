@@ -45,7 +45,7 @@ server.setConfig((app) => {
             )
         })
     );
-})
+});
 
 const app: express.Application = server.build();
 

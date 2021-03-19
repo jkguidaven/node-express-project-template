@@ -1,4 +1,4 @@
-import { Container } from "inversify";
+import { Container } from 'inversify';
 import serviceDepLoader from './services';
 
 export class IOCContainer extends Container {
@@ -7,7 +7,7 @@ export class IOCContainer extends Container {
         this.setup();
     }
 
-    setup() {
+    setup(): void {
         serviceDepLoader(this);
     }
 }

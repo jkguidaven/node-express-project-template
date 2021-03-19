@@ -6,7 +6,6 @@ import { SampleService } from '../../services/sample.service';
 let service: SampleService;
 
 describe('sample service unit test', () => {
-
     beforeEach(() => {
         const container: Container = new Container();
         container.bind(SampleService).toSelf();

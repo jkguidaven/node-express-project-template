@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
+import { injectable } from 'inversify';
 
 @injectable()
 export class SampleService {
-    getMessage() {
+    getMessage(): string {
         return 'hello world';
     }
 }
