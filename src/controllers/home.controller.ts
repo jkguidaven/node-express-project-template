@@ -1,17 +1,19 @@
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
 import {
-    interfaces,
     controller,
     httpGet,
     request,
     response
 } from 'inversify-express-utils';
 import { SampleService } from '../services/sample.service';
+import { BaseController } from './base.controller';
 
 @controller('/')
-export class HomeController implements interfaces.Controller {
-    constructor(@inject('sampleService') private service: SampleService) {}
+export class HomeController extends BaseController {
+    constructor(@inject('sampleService') private service: SampleService) {
+        super();
+    }
 
     @httpGet('/')
     public index(@request() req: Request, @response() res: Response): void {
@@ -20,5 +22,13 @@ export class HomeController implements interfaces.Controller {
         } catch (error) {
             res.status(400).json(error);
         }
+    }
+
+    @httpGet('render')
+    public view(
+        @request() req: Request,
+        @response() res: Response
+    ): Promise<string> {
+        return this.render(res, 'sample', { message: 'Hello world!' });
     }
 }

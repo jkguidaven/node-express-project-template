@@ -32,7 +32,10 @@ module.exports = {
     plugins: [
         // Copy our asset folder to build directory
         new CopyPlugin({
-            patterns: [{ from: 'src/static', to: 'static' }]
+            patterns: [
+                { from: 'src/static', to: 'src/static' },
+                { from: 'src/views', to: 'src/views' }
+            ]
         })
     ]
 };

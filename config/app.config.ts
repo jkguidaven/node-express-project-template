@@ -1,4 +1,5 @@
 import path from 'path';
+import { VIEW_ENGINE } from '../src/plugins/views';
 
 export default {
     // Server port address
@@ -21,10 +22,33 @@ export default {
      * documentation to learn more about the options:
      * https://www.npmjs.com/package/cors#configuring-cors
      */
-    corsOptions: {
+    CORS_OPTIONS: {
         origin: '*',
         methods: ['GET', 'HEAD', 'PUT', 'PATH', 'POST', 'DELETE'],
         preflightContinue: false,
         optionsSuccessStatus: 204
+    },
+
+    /*
+     * Specify here the view engine template you would like to use
+     * and the source directory of the template files.
+     *
+     *  The supported engines are the following:
+     *  - handlebars (https://handlebarsjs.com/)
+     *  - ejs (https://www.npmjs.com/package/ejs)
+     *  - pug (https://pugjs.org/api/getting-started.html)
+     */
+    VIEW_OPTIONS: {
+        ENGINE: VIEW_ENGINE.HANDLEBARS,
+        SOURCE_DIR: path.join(__dirname, 'src', 'views'),
+        /*
+         * Incase you are using different template not official supported. Please specify
+         * the loader callback here to register and configure the engine if needed. eg.
+         *
+         *   (app: express.Application) => {
+         *     app.engine('..', ...)
+         *   }
+         */
+        LOADER: null
     }
 };
