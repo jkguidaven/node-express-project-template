@@ -19,7 +19,9 @@ import debugLog from './src/utils/debug';
 import './src/controllers';
 
 // Internal plugins;
-import ViewPluginLoader from './src/plugins/views';
+/* Uncomment this to enable view engine templating
+ * import ViewPluginLoader from './src/plugins/views';
+ */
 
 // We prepare our IOC container to our server
 const container: IOCContainer = new IOCContainer();
@@ -38,8 +40,9 @@ server.setConfig((app) => {
     // We are adding middleware to enable compression on server responses
     app.use(compression());
 
-    // Uncomment this to enable view engine templating
-    //  ViewPluginLoader(app);
+    /* Uncomment this to enable view engine templating
+     *  ViewPluginLoader(app);
+     */
 
     // here we are configuring the expressWinston logging middleware,
     // which will automatically log all HTTP requests handled by Express.js
