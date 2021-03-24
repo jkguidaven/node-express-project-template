@@ -1,10 +1,22 @@
-const modules = require.context(
-    // Search for files in the current directory.
-    '.',
-    // Search for files in subdirectories.
-    true,
-    // Include any .js or .ts files that are not this file and base.controller.
-    /^((?!index|base\.controller).)*\.(ts|js)$/
-);
+import requireContext from '../utils/require-context';
+import path from 'path';
 
-modules.keys().forEach((key) => modules(key));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let modules: any;
+
+try {
+    modules = require.context(
+        '.',
+        true,
+        /^((?!index|base\.controller).)*\.(ts|js)$/
+    );
+} catch (_) {
+    // Incase 'require.context' is not available (text environment)
+    modules = requireContext(
+        path.resolve(__dirname, '.'),
+        true,
+        /^((?!index|base\.controller).)*\.(ts|js)$/
+    );
+}
+
+modules.keys().forEach((key: string) => modules(key));

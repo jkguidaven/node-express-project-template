@@ -1,18 +1,25 @@
 import { Container } from 'inversify';
+import requireContext from '../utils/require-context';
+import path from 'path';
 
 import camelCase from 'lodash/camelCase';
 
 export default (container: Container): void => {
-    const modules = require.context(
-        // Search for files in the current directory.
-        '.',
-        // Search for files in subdirectories.
-        true,
-        // Include any .js or .ts files that are not this file.
-        /^((?!index).)*\.(ts|js)$/
-    );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let modules: any;
 
-    modules.keys().forEach((fileName) => {
+    try {
+        modules = require.context('.', true, /^((?!index).)*\.(ts|js)$/);
+    } catch (_) {
+        // Incase 'require.context' is not available (text environment)
+        modules = requireContext(
+            path.resolve(__dirname, '.'),
+            true,
+            /^((?!index).)*\.(ts|js)$/
+        );
+    }
+
+    modules.keys().forEach((fileName: string) => {
         const serviceDefinition = modules(fileName).default;
 
         // Get the module path as an array.
@@ -24,10 +31,10 @@ export default (container: Container): void => {
             // Split nested modules into an array path.
             .split(/\//)
             // CamelCase all module namespaces and names.
-            .map(camelCase)[0];
+            .map(camelCase);
 
         container
-            .bind<typeof serviceDefinition>(serviceName)
+            .bind<typeof serviceDefinition>(serviceName[serviceName.length - 1])
             .to(serviceDefinition);
     });
 };
