@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { Container } from 'inversify';
 import 'reflect-metadata';
-import { SampleService } from '../../services/sample.service';
+import SampleService from '../../services/sample.service';
 
 let service: SampleService;
 
