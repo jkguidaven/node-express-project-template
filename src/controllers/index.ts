@@ -11,7 +11,7 @@ try {
         /^((?!index|base\.controller).)*\.(ts|js)$/
     );
 } catch (_) {
-    // Incase 'require.context' is not available (text environment)
+    // Incase 'require.context' is not available (test environment)
     modules = requireContext(
         path.resolve(__dirname, '.'),
         true,

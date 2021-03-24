@@ -11,7 +11,7 @@ export default (container: Container): void => {
     try {
         modules = require.context('.', true, /^((?!index).)*\.(ts|js)$/);
     } catch (_) {
-        // Incase 'require.context' is not available (text environment)
+        // Incase 'require.context' is not available (test environment)
         modules = requireContext(
             path.resolve(__dirname, '.'),
             true,
