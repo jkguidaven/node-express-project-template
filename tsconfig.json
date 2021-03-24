@@ -3,7 +3,7 @@
         "target": "es5",
         "module": "commonjs",
         "lib": ["es6", "dom"],
-        "types": ["reflect-metadata", "mocha"],
+        "types": ["reflect-metadata", "mocha", "webpack-env"],
         "outDir": "./dist",
         "strict": true,
         "esModuleInterop": true,
