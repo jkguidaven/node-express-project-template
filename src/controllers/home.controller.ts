@@ -6,7 +6,7 @@ import {
     request,
     response
 } from 'inversify-express-utils';
-import { SampleService } from '../services/sample.service';
+import SampleService from '../services/sample.service';
 import { BaseController } from './base.controller';
 
 @controller('/')
