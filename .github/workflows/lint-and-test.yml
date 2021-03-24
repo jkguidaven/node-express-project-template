@@ -1,0 +1,26 @@
+name: Lint and Test
+on:
+    pull_request:
+        paths:
+            - '**'
+    push:
+        branches:
+            - master
+        paths:
+            - '**'
+
+jobs:
+    lint-test:
+        name: Lint and Test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+              with:
+                  fetch-depth: 1
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 10.x
+
+            - run: yarn install
+            - run: yarn lint
+            - run: yarn test
