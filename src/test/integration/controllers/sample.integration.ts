@@ -1,4 +1,4 @@
-import app from '../../../app';
+import app from '../../../../app';
 
 import chai, { expect } from 'chai';
 import ChaiHttp from 'chai-http';
@@ -23,7 +23,7 @@ describe('Sample page', function () {
     });
 
     it('404', function (done) {
-        request.get('/test').end((err, res) => {
+        request.get('/404').end((err, res) => {
             if (err) {
                 done(err);
             }
