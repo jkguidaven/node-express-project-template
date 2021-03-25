@@ -4,7 +4,7 @@ to: "src/test/integration/controllers/<%= h.changeCase.kebab(h.component(name).n
 <%
     const importName = h.changeCase.pascal(h.component(name).name);
 %>
-import app from '../../../../app';
+import server from '../../../../main';
 
 import chai, { expect } from 'chai';
 import ChaiHttp from 'chai-http';
@@ -14,7 +14,7 @@ let request: ChaiHttp.Agent;
 describe('<%= importName %>Controller API test', function () {
     before(async () => {
         chai.use(ChaiHttp);
-        request = chai.request(app).keepOpen();
+        request = chai.request(server).keepOpen();
     });<% for (let method of methods) { %>
 
     it('<%= method.toLowerCase() %>', function (done) {
@@ -28,5 +28,5 @@ describe('<%= importName %>Controller API test', function () {
         });
     });<% } %>
 
-    after(() => app.close());
+    after(() => server.close());
 });

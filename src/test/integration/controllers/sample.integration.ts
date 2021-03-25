@@ -1,4 +1,4 @@
-import app from '../../../../app';
+import server from '../../../../main';
 
 import chai, { expect } from 'chai';
 import ChaiHttp from 'chai-http';
@@ -8,7 +8,7 @@ let request: ChaiHttp.Agent;
 describe('Sample page', function () {
     before(async () => {
         chai.use(ChaiHttp);
-        request = chai.request(app).keepOpen();
+        request = chai.request(server).keepOpen();
     });
 
     it('home', function (done) {
@@ -33,5 +33,5 @@ describe('Sample page', function () {
         });
     });
 
-    after(() => app.close());
+    after(() => server.close());
 });

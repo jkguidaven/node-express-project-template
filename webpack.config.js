@@ -5,13 +5,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { NODE_ENV = 'production' } = process.env;
 
 module.exports = {
-    entry: './app.ts',
+    entry: './main.ts',
     mode: NODE_ENV,
     watch: NODE_ENV === 'development',
     target: 'node',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.js'
+        filename: 'main.js'
     },
     resolve: {
         extensions: ['.ts', '.js']
