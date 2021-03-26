@@ -10,19 +10,19 @@ export enum VIEW_ENGINE {
 
 export default (app: express.Application, config: AppConfig): void => {
     const options:
-        | {
+        | Partial<{
               ENGINE: VIEW_ENGINE;
               SOURCE_DIR: string;
               LOADER?:
                   | ((app: express.Application) => Express.Application)
                   | undefined;
-          }
+          }>
         | undefined = config.VIEW_OPTIONS;
 
     // If we don't have views config.. skip this loader
     if (!options) return;
 
-    const engine: VIEW_ENGINE = options.ENGINE;
+    const engine: VIEW_ENGINE | undefined = options.ENGINE;
 
     /* We check if we have specified a custom loader
      * otherwise we load the supported engine.
