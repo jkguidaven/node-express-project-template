@@ -30,10 +30,12 @@
     "handlebars": "^4.7.7",
     "inversify": "^5.0.5",
     "inversify-express-utils": "^6.3.2",
+    "inversify-socket-utils": "^1.0.3",
     "joi": "^17.4.0",
     "lodash": "^4.17.21",
     "pug": "^3.0.2",
     "reflect-metadata": "^0.1.13",
+    "socket.io": "^4.0.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

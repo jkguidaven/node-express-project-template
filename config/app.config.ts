@@ -1,4 +1,5 @@
 import express from 'express';
+import SocketIO from 'socket.io';
 
 export enum VIEW_ENGINE {
     EJS,
@@ -11,16 +12,18 @@ export default interface AppConfig {
     PORT: number;
     STATIC_SOURCE_DIR: string;
     STATIC_BASE_URL: string;
-    CORS_OPTIONS: {
+    CORS_OPTIONS: Partial<{
         origin: string;
         methods: Array<string>;
         preflightContinue: boolean;
         optionsSuccessStatus: number;
-    };
+    }>;
 
-    VIEW_OPTIONS?: {
+    VIEW_OPTIONS?: Partial<{
         ENGINE: VIEW_ENGINE;
         SOURCE_DIR: string;
-        LOADER?: (app: express.Application) => Express.Application;
-    };
+        LOADER: (app: express.Application) => Express.Application;
+    }>;
+
+    WEBSOCKET_OPTIONS?: Partial<SocketIO.ServerOptions>;
 }

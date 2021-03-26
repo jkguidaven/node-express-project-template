@@ -49,6 +49,17 @@ const config: AppConfig = {
          *     app.engine('..', ...)
          *   }
          */
+    },
+
+    /*
+     * Specify here the websocket.io configuration. To learn more about
+     * how to configure your websocket.io server. refer to the link:
+     * https://socket.io/docs/v4/server-api/
+     *
+     */
+    WEBSOCKET_OPTIONS: {
+        path: '/ws',
+        allowEIO3: true
     }
 };
 

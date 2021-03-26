@@ -2,6 +2,7 @@
 import express from 'express';
 import * as bodyparser from 'body-parser';
 import compression from 'compression';
+import { Server } from 'http';
 
 // 3rd party libraries
 import 'reflect-metadata';
@@ -9,17 +10,19 @@ import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors';
 import { InversifyExpressServer } from 'inversify-express-utils';
+import { InversifySocketServer } from 'inversify-socket-utils';
+import SocketIO from 'socket.io';
 
 // Internal dependencies & libraries
 import { IOCContainer } from './ioc-container';
 
 // We load our controllers by declared metadata from @controller annotation
-import './controllers';
 import AppConfig from '../config/app.config';
 
-export default function (config: AppConfig): express.Application {
+export default function (config: AppConfig): Server {
     // We prepare our IOC container to our server
     const container: IOCContainer = new IOCContainer();
+
     const server = new InversifyExpressServer(container);
 
     // Configure our app by enabling plugins
@@ -59,5 +62,14 @@ export default function (config: AppConfig): express.Application {
         );
     });
 
-    return server.build();
+    const app = server.build();
+    const httpServer = app.listen(config.PORT);
+
+    if (config.WEBSOCKET_OPTIONS) {
+        const io = new SocketIO.Server(httpServer, config.WEBSOCKET_OPTIONS);
+        const socketServer = new InversifySocketServer(container, io);
+        socketServer.build();
+    }
+
+    return httpServer;
 }

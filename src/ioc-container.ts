@@ -1,5 +1,6 @@
 import { Container } from 'inversify';
-import serviceDepLoader from './services';
+import servicesDepLoader from './services';
+import controllersDepLoader from './controllers';
 
 export class IOCContainer extends Container {
     constructor() {
@@ -8,6 +9,7 @@ export class IOCContainer extends Container {
     }
 
     setup(): void {
-        serviceDepLoader(this);
+        servicesDepLoader(this);
+        controllersDepLoader(this);
     }
 }

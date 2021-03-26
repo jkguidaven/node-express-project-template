@@ -4,12 +4,8 @@ import devConfig from './config/dev.config';
 const config: AppConfig =
     process.env.environment === 'production' ? prodConfig : devConfig;
 
-import initialize from './src/app';
+import runApp from './src/app';
 import AppConfig from './config/app.config';
 
-// Initialize our app using our config file
-const app = initialize(config);
-
-const server = app.listen(config.PORT);
-
-export default server;
+// run our app using our config file
+export default runApp(config);
