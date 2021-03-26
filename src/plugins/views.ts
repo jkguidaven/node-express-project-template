@@ -9,14 +9,27 @@ export enum VIEW_ENGINE {
 }
 
 export default (app: express.Application, config: AppConfig): void => {
-    const engine: VIEW_ENGINE = config.VIEW_OPTIONS.ENGINE;
+    const options:
+        | {
+              ENGINE: VIEW_ENGINE;
+              SOURCE_DIR: string;
+              LOADER?:
+                  | ((app: express.Application) => Express.Application)
+                  | undefined;
+          }
+        | undefined = config.VIEW_OPTIONS;
+
+    // If we don't have views config.. skip this loader
+    if (!options) return;
+
+    const engine: VIEW_ENGINE = options.ENGINE;
 
     /* We check if we have specified a custom loader
      * otherwise we load the supported engine.
      */
-    if (config.VIEW_OPTIONS.LOADER) {
+    if (options.LOADER) {
         const loaderCallback =
-            config.VIEW_OPTIONS.LOADER || ((app: express.Application) => app);
+            options.LOADER || ((app: express.Application) => app);
 
         loaderCallback(app);
     } else if (engine === VIEW_ENGINE.EJS) {
@@ -28,5 +41,5 @@ export default (app: express.Application, config: AppConfig): void => {
         app.set('view engine', 'hbs');
     }
 
-    app.set('views', config.VIEW_OPTIONS.SOURCE_DIR);
+    app.set('views', options.SOURCE_DIR);
 };

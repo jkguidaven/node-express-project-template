@@ -13,12 +13,6 @@ import { InversifyExpressServer } from 'inversify-express-utils';
 // Internal dependencies & libraries
 import { IOCContainer } from './ioc-container';
 
-// Internal plugins
-
-/* Uncomment this to enable view engine templating
- * import ViewPluginLoader from './src/plugins/views';
- */
-
 // We load our controllers by declared metadata from @controller annotation
 import './controllers';
 import AppConfig from '../config/app.config';
@@ -45,9 +39,12 @@ export default function (config: AppConfig): express.Application {
         // We are adding middleware to enable compression on server responses
         app.use(compression());
 
-        /* Uncomment this to enable view engine templating
-         *  ViewPluginLoader(app, config);
-         */
+        if (config.VIEW_OPTIONS) {
+            // We import it this way so we won't include views in the package if not used
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const ViewPluginLoader = require('./plugins/views').default;
+            ViewPluginLoader(app, config);
+        }
 
         // here we are configuring the expressWinston logging middleware,
         // which will automatically log all HTTP requests handled by Express.js

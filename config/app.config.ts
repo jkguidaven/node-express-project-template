@@ -18,7 +18,7 @@ export default interface AppConfig {
         optionsSuccessStatus: number;
     };
 
-    VIEW_OPTIONS: {
+    VIEW_OPTIONS?: {
         ENGINE: VIEW_ENGINE;
         SOURCE_DIR: string;
         LOADER?: (app: express.Application) => Express.Application;
