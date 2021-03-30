@@ -67,7 +67,7 @@ const config: AppConfig = {
      * configuring the connection. refer to the link: https://mongoosejs.com/docs/connections.html
      */
     MONGODB: {
-        uri: 'mongodb://localhost/sample',
+        uri: 'mongodb://root:example@localhost',
         options: {
             useUnifiedTopology: true,
             useNewUrlParser: true

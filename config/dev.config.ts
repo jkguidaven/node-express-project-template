@@ -15,19 +15,7 @@ const config: AppConfig = {
      * Specify here the base url for serving the static asset files.
      * By default it is set to '/public'
      */
-    STATIC_BASE_URL: '/public',
-
-    /*
-     * To initialize a mongodb connection, specify configuration here. To learn more about
-     * configuring the connection. refer to the link: https://mongoosejs.com/docs/connections.html
-     */
-    MONGODB: {
-        uri: 'mongodb://localhost/sample',
-        options: {
-            useUnifiedTopology: true,
-            useNewUrlParser: true
-        }
-    }
+    STATIC_BASE_URL: '/public'
 };
 
 export default config;
