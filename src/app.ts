@@ -26,12 +26,14 @@ export default function (config: AppConfig): Server {
     const server = new InversifyExpressServer(container);
 
     // Configure our app by enabling plugins
-    server.setConfig((app: express.Application) => {
+    server.setConfig(async (app: express.Application) => {
         // We load our static files from source directory
-        app.use(
-            config.STATIC_BASE_URL,
-            express.static(config.STATIC_SOURCE_DIR)
-        );
+        if (config.STATIC_BASE_URL && config.STATIC_SOURCE_DIR) {
+            app.use(
+                config.STATIC_BASE_URL,
+                express.static(config.STATIC_SOURCE_DIR)
+            );
+        }
 
         // We are adding middleware to parse all incoming requests as JSON
         app.use(bodyparser.json());
@@ -41,6 +43,17 @@ export default function (config: AppConfig): Server {
 
         // We are adding middleware to enable compression on server responses
         app.use(compression());
+
+        // We will initialize here our mongodb instance if we have set it up
+        if (config.MONGODB) {
+            // We import it this way so we won't include views in the package if not used
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            const mongodbPluginLoader = require('./plugins/mongodb').default;
+            await mongodbPluginLoader(
+                config.MONGODB.uri,
+                config.MONGODB.options
+            );
+        }
 
         if (config.VIEW_OPTIONS) {
             // We import it this way so we won't include views in the package if not used

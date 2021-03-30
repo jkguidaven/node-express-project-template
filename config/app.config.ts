@@ -1,5 +1,6 @@
 import express from 'express';
 import SocketIO from 'socket.io';
+import mongoose from 'mongoose';
 
 export enum VIEW_ENGINE {
     EJS,
@@ -10,9 +11,12 @@ export enum VIEW_ENGINE {
 export default interface AppConfig {
     // Server port address
     PORT: number;
-    STATIC_SOURCE_DIR: string;
-    STATIC_BASE_URL: string;
-    CORS_OPTIONS: Partial<{
+
+    STATIC_SOURCE_DIR?: string;
+
+    STATIC_BASE_URL?: string;
+
+    CORS_OPTIONS?: Partial<{
         origin: string;
         methods: Array<string>;
         preflightContinue: boolean;
@@ -26,4 +30,9 @@ export default interface AppConfig {
     }>;
 
     WEBSOCKET_OPTIONS?: Partial<SocketIO.ServerOptions>;
+
+    MONGODB?: {
+        uri: string;
+        options?: Partial<mongoose.ConnectionOptions>;
+    };
 }

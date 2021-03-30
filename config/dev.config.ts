@@ -1,5 +1,5 @@
 import path from 'path';
-import AppConfig, { VIEW_ENGINE } from './app.config';
+import AppConfig from './app.config';
 
 const config: AppConfig = {
     // Server port address
@@ -18,48 +18,15 @@ const config: AppConfig = {
     STATIC_BASE_URL: '/public',
 
     /*
-     * Specify here the CORS configuration. refer to the following
-     * documentation to learn more about the options:
-     * https://www.npmjs.com/package/cors#configuring-cors
+     * To initialize a mongodb connection, specify configuration here. To learn more about
+     * configuring the connection. refer to the link: https://mongoosejs.com/docs/connections.html
      */
-    CORS_OPTIONS: {
-        origin: '*',
-        methods: ['GET', 'HEAD', 'PUT', 'PATH', 'POST', 'DELETE'],
-        preflightContinue: false,
-        optionsSuccessStatus: 204
-    },
-
-    /*
-     * Specify here the view engine template you would like to use
-     * and the source directory of the template files.
-     *
-     *  The supported engines are the following:
-     *  - handlebars (https://handlebarsjs.com/)
-     *  - ejs (https://www.npmjs.com/package/ejs)
-     *  - pug (https://pugjs.org/api/getting-started.html)
-     */
-    VIEW_OPTIONS: {
-        ENGINE: VIEW_ENGINE.HANDLEBARS,
-        SOURCE_DIR: path.join(__dirname, 'src', 'views')
-        /*
-         * Incase you are using different template not official supported. Please specify
-         * the loader callback here to register and configure the engine if needed. eg.
-         *
-         *   LOADER: (app: express.Application) => {
-         *     app.engine('..', ...)
-         *   }
-         */
-    },
-
-    /*
-     * Specify here the websocket.io configuration. To learn more about
-     * how to configure your websocket.io server. refer to the link:
-     * https://socket.io/docs/v4/server-api/
-     *
-     */
-    WEBSOCKET_OPTIONS: {
-        path: '/ws',
-        allowEIO3: true
+    MONGODB: {
+        uri: 'mongodb://localhost/sample',
+        options: {
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        }
     }
 };
 
