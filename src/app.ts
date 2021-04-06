@@ -16,7 +16,7 @@ import SocketIO from 'socket.io';
 // Internal dependencies & libraries
 import { IOCContainer } from './ioc-container';
 import AppConfig from '../config/app.config';
-import { Middleware, TYPES } from './middleware/base.middleware';
+import { Middleware, TYPES } from './middlewares/base.middlewares';
 
 export default function (config: AppConfig): Server {
     // We prepare our IOC container to our server
