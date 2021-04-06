@@ -15,9 +15,8 @@ import SocketIO from 'socket.io';
 
 // Internal dependencies & libraries
 import { IOCContainer } from './ioc-container';
-
-// We load our controllers by declared metadata from @controller annotation
 import AppConfig from '../config/app.config';
+import { Middleware, TYPES } from './middleware/base.middleware';
 
 export default function (config: AppConfig): Server {
     // We prepare our IOC container to our server
@@ -61,6 +60,12 @@ export default function (config: AppConfig): Server {
             const ViewPluginLoader = require('./plugins/views').default;
             ViewPluginLoader(app, config);
         }
+
+        // We load all middlewares from our container
+        const middlewares = container
+            .getAll<Middleware>(TYPES.Middleware)
+            .map((middleware) => middleware.handler.bind(middleware));
+        app.use(middlewares);
 
         // here we are configuring the expressWinston logging middleware,
         // which will automatically log all HTTP requests handled by Express.js
