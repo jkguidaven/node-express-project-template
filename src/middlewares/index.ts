@@ -2,8 +2,6 @@ import path from 'path';
 import requireContext from '../utils/require-context';
 import { Container } from 'inversify';
 
-import { Middleware, TYPES } from './base.middleware';
-
 // Load our middlewares to our container
 export default (container: Container): void => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +22,10 @@ export default (container: Container): void => {
         );
     }
 
-    modules.keys().forEach((key: string) => {
-        const module = modules(key);
-        const moduleName = Object.keys(module)[0];
-        const middleware = module[moduleName];
-
+    modules.keys().forEach((fileName: string) => {
+        const middlewareDefinition = modules(fileName).default;
         container
-            .bind<Middleware>(TYPES.Middleware)
-            .to(middleware)
-            .whenTargetNamed(moduleName);
+            .bind<typeof middlewareDefinition>(middlewareDefinition)
+            .toSelf();
     });
 };

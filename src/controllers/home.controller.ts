@@ -6,10 +6,11 @@ import {
     request,
     response
 } from 'inversify-express-utils';
+import SampleMiddleware from '../middlewares/sample.middleware';
 import SampleService from '../services/sample.service';
 import { BaseController } from './base.controller';
 
-@controller('/')
+@controller('/', SampleMiddleware)
 export class HomeController extends BaseController {
     constructor(@inject(SampleService) private service: SampleService) {
         super();
