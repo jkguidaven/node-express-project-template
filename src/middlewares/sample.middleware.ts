@@ -6,7 +6,7 @@ import debugLog from '../utils/debug';
 
 @injectable()
 export class SampleMiddleware implements Middleware {
-    constructor(@inject('sampleService') private service: SampleService) {}
+    constructor(@inject(SampleService) private service: SampleService) {}
 
     handler(request: Request, response: Response, next: NextFunction): void {
         debugLog(this.service.getMessage());

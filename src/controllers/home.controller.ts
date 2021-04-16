@@ -11,7 +11,7 @@ import { BaseController } from './base.controller';
 
 @controller('/')
 export class HomeController extends BaseController {
-    constructor(@inject('sampleService') private service: SampleService) {
+    constructor(@inject(SampleService) private service: SampleService) {
         super();
     }
 
